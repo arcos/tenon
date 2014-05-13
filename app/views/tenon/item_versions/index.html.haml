@@ -1,0 +1,8 @@
+.modal-body
+  %table
+    - @item_versions.each do |item_version|
+      %tr
+        %td= item_version.created_at.strftime('%m/%d/%Y %I:%M%p')
+        %td= item_version.title
+        %td= item_version.user.try(:email)
+        %td= link_to "Load", polymorphic_path([:edit, item_version.item], version: item_version.id)

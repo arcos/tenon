@@ -1,6 +1,8 @@
 Tenon::Engine.routes.draw do
   devise_for :users, class_name: "Tenon::User", module: :devise
 
+  resources :item_versions, only: [:create, :show, :new, :index]
+
   resources :assets do
     post 'encode_notify', :on => :collection
     get :crop, :on => :member
