@@ -27,7 +27,7 @@ module Tenon
       end
 
       def require_only_attrs!
-        @attrs = @attrs.select do |k,v|
+        @attrs = @attrs.select do |k, v|
           @item.has_history_only.include?(k)
         end
       end
