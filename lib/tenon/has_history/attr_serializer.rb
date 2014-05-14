@@ -6,7 +6,7 @@ module Tenon
       end
 
       def initialize(attrs, item_version)
-        @attrs = attrs.symbolize_keys
+        @attrs = attrs
         @item_version = item_version
         @item = @item_version.item
       end
@@ -19,8 +19,10 @@ module Tenon
 
       def filtered_attrs
         @attrs.deep_reject_key!(:id)
+        @attrs.deep_reject_key!('id')
         require_only_attrs! unless @item.has_history_only.empty?
         remove_except_attrs! unless @item.has_history_except.empty?
+        remove_children!
         @attrs
       end
 
@@ -33,6 +35,15 @@ module Tenon
       def remove_except_attrs!
         @attrs = @attrs.reject do |k,v|
           @item.has_history_except.include?(k.to_sym)
+        end
+      end
+
+      def remove_children!
+        includes = @item.has_history_includes.map(&:to_s)
+        @attrs = @attrs.reject do |k, v|
+          key = k.to_s
+          relation = key.gsub(/_attributes$/, '')
+          key.match(/_attributes$/) && !includes.include?(relation)
         end
       end
     end

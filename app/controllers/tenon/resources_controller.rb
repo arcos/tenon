@@ -25,9 +25,6 @@ module Tenon
     end
 
     def edit
-      if params[:version]
-        load_version
-      end
       respond_with(resource)
     end
 
@@ -105,16 +102,6 @@ module Tenon
 
     def polymorphic_index_path
       polymorphic_path([klass])
-    end
-
-    def load_version
-      version = ItemVersion.find(params[:version])
-      self.resource = version.item
-      attrs = ActionController::Parameters.new(Marshal.load(version.attrs))
-      resource.assign_attributes(attrs.permit!)
-      flash.now[:notice] = "You are viewing a draft version of this resource.
-        Hitting save will replace the active version with this version.
-      "
     end
 
     def load_options

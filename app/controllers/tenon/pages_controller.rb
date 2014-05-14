@@ -21,6 +21,11 @@ module Tenon
       super
     end
 
+    def edit
+      load_version if params[:version]
+      super
+    end
+
     def reorder
       @pages = Tenon::Page.reorder!(params[:item_list], params[:parent_id])
       render nothing: true
@@ -35,6 +40,22 @@ module Tenon
 
     def resource_params
       params.require(:page).permit!
+    end
+
+    def load_version
+      resource.has_history_includes.each do |assoc_name|
+        assoc = resource.send(assoc_name)
+        if assoc.respond_to?(:each)
+          assoc.each(&:mark_for_destruction)
+        else
+          assoc.mark_for_destruction
+        end
+      end
+
+      version = ItemVersion.find(params[:version])
+      attrs = ActionController::Parameters.new(Marshal.load(version.attrs))
+      resource.assign_attributes(attrs.permit!)
+      flash.now[:notice] = 'You are viewing a draft version of this resource.  Hitting save will replace the active version with this version.'
     end
   end
 end

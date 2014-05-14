@@ -8,7 +8,7 @@ module Tenon
     end
 
     module ClassMethods
-      def has_history(except: [], only: [])
+      def has_history(except: [], only: [], includes: [])
         send(:has_many, :versions,
           class_name: 'Tenon::ItemVersion',
           as: :item
@@ -16,6 +16,7 @@ module Tenon
         default_except = [:id]
         @has_history_except = (except + default_except).uniq
         @has_history_only = only
+        @has_history_includes = includes
       end
     end
 
@@ -26,6 +27,10 @@ module Tenon
 
       def has_history_only
         self.class.instance_variable_get('@has_history_only')
+      end
+
+      def has_history_includes
+        self.class.instance_variable_get('@has_history_includes')
       end
     end
   end
