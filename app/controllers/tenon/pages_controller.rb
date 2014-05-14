@@ -22,7 +22,10 @@ module Tenon
     end
 
     def edit
-      load_version if params[:version]
+      if params[:version] && resource.respond_to?(:revert)
+        @item_version = Tenon::ItemVersion.find(params[:version])
+        resource.revert(@item_version)
+      end
       super
     end
 

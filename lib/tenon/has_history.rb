@@ -32,6 +32,10 @@ module Tenon
       def has_history_includes
         self.class.instance_variable_get('@has_history_includes')
       end
+
+      def revert(item_version)
+        Tenon::HasHistory::ItemReverter.revert(self, item_version)
+      end
     end
   end
 end
