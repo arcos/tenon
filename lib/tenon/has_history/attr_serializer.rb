@@ -33,7 +33,7 @@ module Tenon
       end
 
       def remove_except_attrs!
-        @attrs = @attrs.reject do |k,v|
+        @attrs = @attrs.reject do |k, v|
           @item.has_history_except.include?(k.to_sym)
         end
       end
