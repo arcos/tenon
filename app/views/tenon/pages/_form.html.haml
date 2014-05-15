@@ -9,8 +9,9 @@
         %li.active= link_to "Page Content", '#details', data: {toggle: 'tab'}
         %li= link_to "Search Optimization", '#seo', data: {toggle: 'tab'}
 
-= form_for @page, builder: Tenon::FormBuilder, data: { versioned: true }  do |f|
+= form_for @page, builder: Tenon::FormBuilder, data: { 'item-type' => 'Tenon::Page', 'item-id' => @page.id, 'autosave' => @page.persisted? && !params[:version], 'version-create-path' => item_versions_path } do |f|
   = error_messages_for :page
+  .last-autosave
   .fields.large.tabs
     .tab-pane.active#details
       .form-group

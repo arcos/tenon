@@ -7,7 +7,7 @@ module Tenon
       @item_version.creator_id = current_user.id
       @item_version.save
       respond_to do |format|
-        format.json { render text: @item_version.to_json }
+        format.json
       end
     end
 
@@ -33,6 +33,7 @@ module Tenon
             item_type: params[:item_type],
             item_id: params[:item_id]
           )
+          .paginate(page: params[:page], per_page: 5)
         }
       end
     end
