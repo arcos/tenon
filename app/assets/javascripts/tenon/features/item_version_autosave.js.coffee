@@ -1,7 +1,7 @@
 class Tenon.features.ItemVersionAutosave
   constructor: ->
     @$form = $('form[data-autosave="true"]')
-    setInterval(@autosave, 120000) if @$form.length
+    setInterval(@autosave, 15000) if @$form.length
 
   autosave: =>
     jqxhr = $.ajax
