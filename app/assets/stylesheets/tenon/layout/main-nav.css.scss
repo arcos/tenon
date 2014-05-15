@@ -1,14 +1,14 @@
 .nav-holder {
-  @include transition(all 0.2s ease);
   @include media($mobile-breakpoint) {
-    display: none;
+    @include transition(left 0.2s ease);
+    left: -100%;
+    display: block;
+    width: 100%;
     &.mobile-open {
       right: 0;
       left: 0;
-      display: block;
-      padding-right: 65px;
-      width: auto;
-      background-color: transparentize(#000, 0.5);
+      padding-right: 58px;
+      background-color: transparentize(black, 0.5);
       nav.main-nav {
         width: 100%;
       }
@@ -16,6 +16,8 @@
   }
 
   @include media($tablet-breakpoint) {
+    @include transition(width 0.2s ease);
+    left: 0;
     &.open {
       width: 260px;
     }
@@ -23,12 +25,14 @@
 
   position: fixed;
   top: 50px;
-  left: 0;
   z-index: $tn-z-main-nav;
   overflow: hidden;
   width: 60px;
   height: 100%;
   nav.main-nav {
+    @include media($mobile-breakpoint) {
+      padding-bottom: 50px;
+    }
     overflow-x: hidden;
     overflow-y: auto;
     margin: 0 10px 0 0;
@@ -123,7 +127,7 @@
 // Submenu stuff
 
 nav.main-nav ul ul li {
-  @include transition(all 0.3s ease);
+  @include transition(all 0.2s ease);
   overflow-y: hidden;
   max-height: 0;
   background: $tn-dark-grey;

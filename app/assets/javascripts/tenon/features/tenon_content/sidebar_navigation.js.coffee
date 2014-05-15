@@ -16,9 +16,11 @@ class Tenon.features.SidebarNavigation
       @_openNav()
 
   _closeNav: () =>
+    @$toggle.find('i').toggleClass('fa-caret-square-o-down fa-times')
     @$toggle.removeClass(@openClass)
     @$navigation.removeClass(@openClass)
 
   _openNav: () =>
+    @$toggle.find('i').toggleClass('fa-caret-square-o-down fa-times')
     @$toggle.addClass(@openClass)
     @$navigation.addClass(@openClass)

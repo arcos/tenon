@@ -1,12 +1,8 @@
 %header
-  %h1
-    Create a New Page
+  %h1 Create a New Page
 
   .tools
-    = language_switcher(:pages)
-
-  .spacer
+    = render "tenon/shared/section_header/sidebar_toggle"
 
 .main-content
-  .container
-    = render :partial => "form"
+  = render :partial => "form"

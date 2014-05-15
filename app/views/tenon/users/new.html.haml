@@ -2,10 +2,7 @@
   %h1 New User
 
   .tools
-    = language_switcher(:users)
-
-  .spacer
+    = render "tenon/shared/section_header/sidebar_toggle"
 
 .main-content
-  .container
-    = render :partial => "form"
+  = render :partial => "form"
