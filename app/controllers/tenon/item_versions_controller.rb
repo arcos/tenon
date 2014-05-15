@@ -18,18 +18,22 @@ module Tenon
       )
 
       respond_to do |format|
+        # Modal
         format.html { render layout: false }
       end
     end
 
     def index
-      @item_versions = ItemVersion.where(
-        item_type: params[:item_type],
-        item_id: params[:item_id]
-      )
-
       respond_to do |format|
+        # Modal
         format.html { render layout: false }
+
+        format.json {
+          @item_versions = ItemVersion.where(
+            item_type: params[:item_type],
+            item_id: params[:item_id]
+          )
+        }
       end
     end
 

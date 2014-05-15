@@ -9,7 +9,7 @@
         %li.active= link_to "Page Content", '#details', data: {toggle: 'tab'}
         %li= link_to "Search Optimization", '#seo', data: {toggle: 'tab'}
 
-= form_for @page, :builder => Tenon::FormBuilder do |f|
+= form_for @page, builder: Tenon::FormBuilder, data: { versioned: true }  do |f|
   = error_messages_for :page
   .fields.large.tabs
     .tab-pane.active#details
@@ -52,5 +52,5 @@
         .content
           - if params[:version]
             = link_to "Load Active Version", url_for(version: nil), class: 'delete-link'
-          = link_to "Load Draft", item_versions_path(item_type: 'Tenon::Page', item_id: @page.id), data: {'modal-remote' => true, 'modal-title' => 'Save Draft'}, class: 'delete-link'
+          = link_to "Load Draft", item_versions_path(item_type: 'Tenon::Page', item_id: @page.id), data: {'modal-remote' => true, 'modal-title' => 'Load Draft', 'modal-handler' => 'Tenon.features.ItemVersionIndexHandler'}, class: 'delete-link'
           = link_to "Delete", @page, :data => {:method => :delete, :confirm => "Are you sure you want to delete this?"}, :class => 'delete-link'

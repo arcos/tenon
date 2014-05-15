@@ -1,4 +1,5 @@
 require 'tenon/has_history/attr_serializer.rb'
+require 'tenon/has_history/item_reverter.rb'
 
 module Tenon
   module HasHistory
