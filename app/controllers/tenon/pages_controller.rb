@@ -21,14 +21,6 @@ module Tenon
       super
     end
 
-    def edit
-      if params[:version] && resource.respond_to?(:revert)
-        @item_version = Tenon::ItemVersion.find(params[:version])
-        resource.revert(@item_version)
-      end
-      super
-    end
-
     def reorder
       @pages = Tenon::Page.reorder!(params[:item_list], params[:parent_id])
       render nothing: true

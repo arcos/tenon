@@ -15,6 +15,14 @@ class Tenon.features.NewItemVersionHandler
 
   _formData: =>
     itemFormData = URI("?" + @$itemForm.serialize()).query(true)
+
+    # Serialize the checkbox in a way that rails can get down with
+    @$itemForm.find("input:checkbox").each ->
+      if !(@.checked)
+        itemFormData[@.name] = "0"
+      else
+        itemFormData[@.name] = "1"
+
     versionFormData = URI("?" + @$versionForm.serialize()).query(true)
     delete(itemFormData._method)
     $.extend(itemFormData, versionFormData)

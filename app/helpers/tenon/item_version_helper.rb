@@ -8,7 +8,7 @@ module Tenon
         data: data
       }
 
-      form_for(@page, default_opts.merge(opts), &blk)
+      form_for(obj, default_opts.merge(opts), &blk)
     end
 
     def save_draft_button(obj)

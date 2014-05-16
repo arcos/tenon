@@ -17,6 +17,14 @@ class Tenon.features.ItemVersionAutosave
 
   _formData:  =>
     itemFormData = URI("?" + @$form.serialize()).query(true)
+
+    # Serialize the checkbox in a way that rails can get down with
+    @$form.find("input:checkbox").each ->
+      if !(@.checked)
+        itemFormData[@.name] = "0"
+      else
+        itemFormData[@.name] = "1"
+
     versionData =
       item_version:
         item_type: @$form.data('item-type')
