@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512163915) do
+ActiveRecord::Schema.define(version: 20140516135347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,8 @@ ActiveRecord::Schema.define(version: 20140512163915) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tenon_item_versions", ["item_id", "item_type"], name: "index_tenon_item_versions_on_item_id_and_item_type", using: :btree
 
   create_table "tenon_pages", force: true do |t|
     t.integer  "parent_id"
