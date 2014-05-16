@@ -21,6 +21,10 @@ module Tenon
     end
 
     def new
+      if params[:version] && resource.respond_to?(:revert)
+        @item_version = Tenon::ItemVersion.find(params[:version])
+        resource.revert(@item_version)
+      end
       respond_with(resource)
     end
 

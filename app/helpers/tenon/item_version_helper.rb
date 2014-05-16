@@ -43,7 +43,7 @@ module Tenon
       data = {
         'item-type' => obj.class.to_s,
         'item-id' => obj.id,
-        'autosave' => obj.persisted? && !params[:version],
+        'autosave' => !params[:version],
         'version-create-path' => item_versions_path
       }
 

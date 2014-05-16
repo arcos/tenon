@@ -8,6 +8,7 @@ module Tenon
       def initialize(attrs, item_version)
         @attrs = attrs
         @item_version = item_version
+        @item_class = item_version.item_type.constantize
         @item = @item_version.item
       end
 
@@ -20,31 +21,38 @@ module Tenon
       def filtered_attrs
         @attrs.deep_reject_key!(:id)
         @attrs.deep_reject_key!('id')
-        require_only_attrs! unless @item.has_history_only.empty?
-        remove_except_attrs! unless @item.has_history_except.empty?
+        require_only_attrs! unless only.empty?
+        remove_except_attrs! unless except.empty?
         remove_children!
         @attrs
       end
 
       def require_only_attrs!
-        @attrs = @attrs.select do |k, v|
-          @item.has_history_only.include?(k)
-        end
+        @attrs = @attrs.select { |k, v| only.include?(k) }
       end
 
       def remove_except_attrs!
-        @attrs = @attrs.reject do |k, v|
-          @item.has_history_except.include?(k.to_sym)
-        end
+        @attrs = @attrs.reject { |k, v| except.include?(k.to_sym) }
       end
 
       def remove_children!
-        includes = @item.has_history_includes.map(&:to_s)
         @attrs = @attrs.reject do |k, v|
           key = k.to_s
           relation = key.gsub(/_attributes$/, '')
           key.match(/_attributes$/) && !includes.include?(relation)
         end
+      end
+
+      def only
+        @item_class.instance_variable_get('@has_history_only')
+      end
+
+      def except
+        @item_class.instance_variable_get('@has_history_except')
+      end
+
+      def includes
+        @item_class.instance_variable_get('@has_history_includes').map(&:to_s)
       end
     end
   end

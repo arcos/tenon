@@ -29,6 +29,7 @@ module Tenon
         format.html { render layout: false }
 
         format.json {
+          params.delete(:item_id) if params[:item_id] == ''
           @item_versions = ItemVersion.where(
             item_type: params[:item_type],
             item_id: params[:item_id]
