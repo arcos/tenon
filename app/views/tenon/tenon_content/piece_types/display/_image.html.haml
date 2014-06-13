@@ -1,8 +1,9 @@
-.tn-tc-image
-  - if piece.link_url.blank?
-    = image_tag(piece.image.url(:_medium))
-  - else
-    = link_to image_tag(piece.image.url(:_medium)), piece.link_url, target: '_'
-- if piece.show_caption
-  .tn-tc-caption
-    = piece.caption
+- if piece.image.present?
+  .tn-tc-image
+    - if piece.link_url.blank?
+      = image_tag(piece.image.url(:_medium))
+    - else
+      = link_to image_tag(piece.image.url(:_medium)), piece.link_url, target: '_'
+  - if piece.show_caption
+    .tn-tc-caption
+      = piece.caption
