@@ -60,7 +60,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'launchy', '2.4.2'
   s.add_dependency 'lodash-rails', '2.4.1'
   s.add_dependency 'mediaelement_rails', '0.4.0'
-  s.add_dependency 'medium-editor-rails', '0.9.3'
+  s.add_dependency 'medium-editor-rails', '0.13.1'
   s.add_dependency 'mime-types', '1.25.1'
   s.add_dependency 'neat', '1.6.0'
   s.add_dependency 'nokogiri', '1.5.10'
